@@ -1,4 +1,4 @@
-class Stick{
+ class Stick{
   constructor(x1,y1,x2,y2, rings){
     this.x1 = x1;
     this.y1 = y1;
@@ -51,10 +51,10 @@ class Ring{
     return this.width;
   }
   clicked(){
-        return (mouseX > this.x) && 
-       (mouseX < (this.x*this.width)) && 
-       (mouseY > this.y) && 
-       (mouseY < (this.y * this.height))             
+        return (mouseX > this.x) &&
+       (mouseX < (this.x*this.width)) &&
+       (mouseY > this.y) &&
+       (mouseY < (this.y * this.height))
   }
 
 }
@@ -70,6 +70,7 @@ widthToSubtract = 30;
 sticks = 3;
 ringToMove = 0;
 mouseIsBusy = false;
+rings=3;
 
 function drawSticks(){
   for (let i = 0; i<sticks;i++){
@@ -79,17 +80,17 @@ function drawSticks(){
 
 function drawRings(){
   for (let i = 0; i<rings;i++){
-    ring[i].drawRing();
+      ring[i].drawRing();
   }
 }
 
 function mouseReleased() {
-  ringToMove=0; 
+  ringToMove=0;
 }
 
-function tripleRing(){ 
+function tripleRing(){
   setTimeout(() => {
-    ring[2].moveRing(stick[2].stickX()-(ring[2].ringWidth()/2),height-ringHeightConst);  
+    ring[2].moveRing(stick[2].stickX()-(ring[2].ringWidth()/2),height-ringHeightConst);
     }, 1000);
    setTimeout(() => {
      ring[1].moveRing(stick[1].stickX()-(ring[1].ringWidth()/2),height-ringHeightConst);
@@ -108,16 +109,41 @@ function tripleRing(){
     }, 6000);
   setTimeout(() => {
       ring[2].moveRing(stick[2].stickX()-(ring[2].ringWidth()/2),height-ringHeightConst*3);
-    }, 7000); 
+    }, 7000);
 }
 
+function fourRings(){
+  rings = 4;
+}
+
+function reset(){
+
+}
+
+let button;
+let button2;
+let button3;
+
 function setup() {
-  createCanvas(800, 600);0
-  rectX = 200
-  rectY = 20
-  rings=3
+  createCanvas(800, 600);
+  rectX = 200;
+  rectY = 20;
   stickX = 200;
- 
+  button = createButton("solve!");
+  button.position(100,100);
+  button.size(100,60);
+  button.mousePressed(tripleRing);
+
+  // button2 = createButton("4 Rings");
+  // button2.position(300,100);
+  // button2.size(100,60);
+  // button2.mousePressed(fourRings)
+  //
+  // button3 = createButton("Reset");
+  // button3.position(600,100);
+  // button3.size(100,60);
+  // button3.mousePressed(reset);
+
   for(let i = 0; i<3;i++){
     stick[i] = new Stick(stickX,600,stickX,400,0);
     stickX+=200;
@@ -131,14 +157,13 @@ function setup() {
   stick[0].addRing();
   stick[0].addRing();
   stick[0].addRing();
-  
+
  for (let i = 0; i<rings;i++){
       ring[i].moveRing(stick[0].stickX()-(ringWidth/2)+(widthToSubtract/2),stick[0].stickY()-ringHeight);
       ring[i].changeWidth(widthToSubtract);
       widthToSubtract+=30
       ringHeight+=20
   }
-  tripleRing();
 }
 
 function draw() {
@@ -152,7 +177,7 @@ function draw() {
         mouseIsBusy = true;
       }
     }
-      ring[ringToMove].moveRing(mouseX,mouseY);
+    //  ring[ringToMove].moveRing(mouseX,mouseY);
   }
-  
+
 }
