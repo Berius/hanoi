@@ -120,20 +120,21 @@ class Ring{
 let ring = [];
 let stick = [];
 let button;
+let slider;
 let ringWidth = 200;
 let ringHeight = 20;
 let ringHeightConst = 20;
 let ringwidthConst = 200;
 let currentMovingRing;
 let sticks = 3;
-let rings = 7;
+let rings = 5;
 let backgroundColor = 150;
 let hitboxWidth = 180;
 let hitboxHeight = 200;
 
 let debug = false;
 
-function createSticks(){
+function createSticks(rings){
   stick[0] = new Stick(stickX,600,stickX,400, rings)
   stick[1] = new Stick(stickX+200,600,stickX+200,400,0);
   stick[2] = new Stick(stickX+400,600,stickX+400,400,0);
@@ -171,18 +172,28 @@ function mouseClicked() {
   }
 }
 
+function setSlider(){
+  slider = createSlider(1, 7, 3);
+  slider.position(10, 10);
+}
+
+function winText(){
+  fill(0);
+  textSize(72);
+  textFont('Arial');
+  text('EZ', 100, 100);
+}
+
 function win(){
   if(stick[2].rings.length == rings){
-    print("chuj");
+    winText();
   }
 }
 
 function setup() {
   createCanvas(800, 600);
-  rectX = 200;
-  rectY = 20;
   stickX = 200;
-  createSticks();
+  createSticks(rings);
 }
 
 function draw() {
